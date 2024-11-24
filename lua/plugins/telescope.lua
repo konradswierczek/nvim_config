@@ -1,0 +1,28 @@
+-- ~/.config/nvim/lua/plugins/telescope.lua
+
+return {
+  'nvim-telescope/telescope.nvim',
+  dependencies = { 'nvim-lua/plenary.nvim' },
+  config = function()
+    require('telescope').setup {
+      defaults = {
+        file_ignore_patterns = {".venv", ".git/"},  -- Clears any ignore patterns
+      },
+      pickers = {
+        find_files = {
+          hidden = true,  -- Show hidden files
+        },
+      },
+    }
+
+    -- Set keymaps outside the setup function
+    local keymap = vim.keymap
+
+    keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
+    keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Fuzzy find recent files" })
+    keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
+    keymap.set("n", "<leader>fs", "<cmd>Telescope git_status<cr>", { desc = "Git status" })
+    keymap.set("n", "<leader>fc", "<cmd>Telescope git_commits<cr>", { desc = "Git commits" })
+  end
+}
+
